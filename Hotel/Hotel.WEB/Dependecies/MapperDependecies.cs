@@ -2,10 +2,10 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Hotel.WEB.Dependecies
+namespace Hotel.Web.Dependecies
 {
     using AutoMapper;
-    using Hotel.WEB.Infrastructure;
+    using Hotel.Web.Infrastructure;
     using Ninject.Modules;
 
     /// <summary>
@@ -24,7 +24,9 @@ namespace Hotel.WEB.Dependecies
                 mc.AddProfile(new BllMapper());
             });
 
-            this.Bind<IMapper>().ToConstant(configuration.CreateMapper());
+            this.Bind<IMapper>()
+                .ToConstant(configuration.CreateMapper())
+                .InSingletonScope();
         }
     }
 }

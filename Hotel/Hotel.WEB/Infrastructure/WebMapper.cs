@@ -2,14 +2,14 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Hotel.WEB.Infrastructure
+namespace Hotel.Web.Infrastructure
 {
     using System;
     using System.Web.Mvc;
     using AutoMapper;
-    using Hotel.BLL.DTOs;
-    using Hotel.BLL.Enums;
-    using Hotel.BLL.Models;
+    using Hotel.BusinessLogic.DTOs;
+    using Hotel.BusinessLogic.Enums;
+    using Hotel.BusinessLogic.Models;
     using Hotel.WEB.Models.Admin;
     using Hotel.WEB.Models.Booking;
     using Hotel.WEB.Models.Common;

@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Hotel.WEB</RootNamespace>
-    <AssemblyName>Hotel.WEB</AssemblyName>
+    <RootNamespace>Hotel.Web</RootNamespace>
+    <AssemblyName>Hotel.Web</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -433,11 +433,9 @@
     <Content Include="Views\Staff\Rooms.cshtml" />
     <Content Include="Views\Staff\EditRoom.cshtml" />
     <Content Include="stylecop.json" />
-    <Content Include="stylecop1.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -451,14 +449,14 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Hotel.BLL\Hotel.BLL.csproj">
-      <Project>{db63b459-8e8c-4f08-940f-5474334661ab}</Project>
-      <Name>Hotel.BLL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hotel.BusinessLogic\Hotel.BusinessLogic.csproj">
+      <Project>{db63b459-8e8c-4f08-940f-5474334661ab}</Project>
+      <Name>Hotel.BusinessLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

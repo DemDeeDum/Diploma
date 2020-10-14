@@ -8,9 +8,9 @@ namespace Hotel.WEB
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Hotel.BLL.BookingKiller;
-    using Hotel.BLL.Dependencies;
-    using Hotel.WEB.Dependecies;
+    using Hotel.BusinessLogic.BookingKiller;
+    using Hotel.BusinessLogic.Dependencies;
+    using Hotel.Web.Dependecies;
     using Ninject;
     using Ninject.Web.Mvc;
 
@@ -33,8 +33,10 @@ namespace Hotel.WEB
 
             var serviceDependencies = new ServiceDependencies();
             var dataAccessorsDependencies = new DataAccessorsDependencies();
+            var lazyDependecies = new LazyDependencyInjection();
             var mapperDependencies = new MapperDependecies();
             var kernel = new StandardKernel(
+                lazyDependecies,
                 serviceDependencies,
                 dataAccessorsDependencies,
                 mapperDependencies);
