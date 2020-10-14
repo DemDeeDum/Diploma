@@ -1,0 +1,29 @@
+﻿main {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.sec-main {
+    width: 0;
+    height: 0;
+}
+
+.sec-main-welcome {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: white;
+    font-size: 12vw;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    height: inherit;
+    width: inherit;
+}
+
+.span-main-welcome {
+    font-weight:normal;
+    padding: .1em;
+    background-color: dimgrey;
+    border: 5px solid white;
+    border-radius: 30px;
+}

@@ -1,0 +1,11 @@
+﻿.log-item {
+    border: 1mm solid gainsboro;
+}
+
+.log-item>div {
+    overflow: auto;
+}
+
+.headers>div {
+    font-size: 1.2em;
+}

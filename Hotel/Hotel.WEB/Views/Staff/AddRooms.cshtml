@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "Adding room";
+}
+@Styles.Render("~/Content/css/roompage.css")
+@using Hotel.WEB.Models.Common
+@model Hotel.WEB.Models.Booking.RoomViewModel
+<article class="top-menu text-center p-1 page-header" id="add-rooms-page">
+    Adding new room
+</article>
+<article class="text-center big-text">
+    @if (!(ViewBag.Message is null))
+    {
+        if ((ViewBag.Message as LogicMessage).IsPositive)
+        {
+            <span class="green-text">@((ViewBag.Message as LogicMessage).Text)</span>
+        }
+        else
+        {
+            <span class="red-text">@((ViewBag.Message as LogicMessage).Text)</span>
+        }
+    }
+</article>
+<article class="d-lg-flex justify-content-center form-room">
+
+    @using (Html.BeginForm("AddRooms", "Staff", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <div class="text-center">Fill the fields</div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                        @Html.LabelFor(model => model.Number, htmlAttributes: new { @class = "control-label col-md-12" })
+                        @Html.EditorFor(model => model.Number, new
+                        {
+                            htmlAttributes =
+                       new { @class = "form-control", type = "text", id = "number-input" }
+                        })
+
+                        <span id="number-validation" class="red-text"></span>
+                    </div>
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                        @Html.LabelFor(model => model.PeopleCount, htmlAttributes: new { @class = "control-label col-md-12" })
+                        @Html.EditorFor(model => model.PeopleCount, new
+                        {
+                            htmlAttributes =
+                       new { @class = "form-control", type = "text" }
+                        })
+                    </div>
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.PeopleCount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+              
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                        @Html.LabelFor(model => model.RoomClassName, htmlAttributes: new { @class = "control-label col-md-12" })
+                        @Html.DropDownListFor(model => model.RoomClassName,
+                       (ViewBag.RoomClasses as List<SelectListItem>)
+                       , "Class name",
+                       new { @class = "form-control", required = "required" })
+                    </div>
+                    
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.RoomClassName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+               
+                <div class="col-md-12 d-flex justify-content-center">
+                    <div>
+                        @Html.LabelFor(model => model.AppartmentStatus, htmlAttributes: new { @class = "control-label col-md-12" })
+                        @Html.DropDownListFor(model => model.AppartmentStatus, new List<SelectListItem>
+        ()
+        {
+        new SelectListItem() { Text = "INACCESSIBLE", Value = "INACCESSIBLE"},
+        new SelectListItem() { Text = "AVAILABLE", Value = "AVAILABLE" }
+        }
+        , "Status", new { @class = "form-control", required = "required" })
+                        <div id="submit-add-room" class="mt-4">
+                            <input type="submit" value="Create" class="btn btn-dark" />
+                        </div>
+                    </div>
+    
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.AppartmentStatus, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+    }
+
+</article>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#number-input').change(function (e) {
+                e.preventDefault();
+                let number = $('#number-input').val();
+                number = encodeURIComponent(number);
+                $('#number-validation').load(
+                    '@Url.Action("NumberValidation")?number=' + number);
+                $('#submit-add-room').load(
+                    '@Url.Action("SubmitChangeState")?number=' + number);
+});
+
+});
+    </script>
+}

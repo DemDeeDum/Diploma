@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = $"Room №{Model.Number}";
+}
+@Styles.Render("~/Content/css/bookingroom.css")
+@using Hotel.WEB.App_Code;
+@using Hotel.WEB.Models.Booking
+@model RoomWholeInformationViewModel
+<article class="top-menu text-center p-1 page-header" id="booking-page">
+    Booking room №@Model.Number
+</article>
+<article class="container">
+    <div class="row">
+        <section class="d-flex justify-content-center flex-column col-6">
+            <div class="p-3 m-3 d-flex justify-content-center flex-column room-info">
+                <span>
+                    Room of
+                    <span class="ts" style="color:@Model.RoomClassColorToDisplay;">
+                        @Model.RoomClassName class
+                    </span>
+                    for @string.Format("{0} {1}",
+@Model.PeopleCount, Model.PeopleCount == 1 ?
+"person" : "people")
+                </span>
+
+                <span>
+                    Price:
+                    <span class="ts" style="color:@Model.RoomClassColorToDisplay;">
+                        @Model.Price$
+                    </span>
+                </span>
+            </div>
+            <div class="p-3 m-3">
+                <div id="user-form">
+                    @Html.Partial("UserForm", new UserFormViewModel()
+               {
+                   Status = ViewBag.Status,
+                   BegginingDate = (DateTime)ViewBag.StartDate,
+                   EndingDate = (DateTime)ViewBag.FinishDate,
+                   Id = Model.Id.ToString()
+               })
+                </div>
+                <div class="big-text mb-3 mt-3">Check dates and book</div>
+                @using (Html.BeginForm("BookingRoom", "Booking", FormMethod.Post,
+new { id = "booking-form" }))
+                {
+                    <div class="d-flex">
+                        <div class="d-flex flex-column">
+                            <label>Start date</label>
+                            <label class="mt-3">Finish date</label>
+
+                        </div>
+                        <div class="d-flex flex-column ml-4">
+                            <input type="date" name="start" class="date-input" id="start-date"
+                                   value=@Html.CreateDateString((DateTime)ViewBag.StartDate) />
+                            <input type="date" name="finish" class="mt-3 date-input" id="finish-date"
+                                   value=@Html.CreateDateString((DateTime)ViewBag.FinishDate) />
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </section>
+        <section class="mt-3 col-6">
+            <div class="ts text-center big-text " style="color:@Model.RoomClassColorToDisplay;">
+                @Model.RoomClassName class
+            </div>
+            <div>
+                @Model.RoomClassInfo
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                @Html.CreateImage(Model.RoomClassImageAddress, "room-photo")
+            </div>
+        </section>
+
+    </div>
+</article>
+@section scripts {
+    <script>
+$(document).ready(function () {
+            $('.date-input').change(function (e) {
+                e.preventDefault();
+                let start = $('#start-date').val();
+                let finish = $('#finish-date').val();
+                start = encodeURIComponent(start);
+                finish = encodeURIComponent(finish);
+                $('#user-form').load('@Url.Action("UserForm")?id=' + @Model.Id +
+                    '&start=' + start + '&finish=' + finish);
+});
+});
+    </script>
+    }
+    
+

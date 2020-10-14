@@ -1,0 +1,119 @@
+﻿body {
+    font-weight: bold;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+.blue-color-title { color: cornflowerblue; }
+.menu-list { 
+    color : cornflowerblue; 
+    font-size : 1.3em;
+}
+.title-link:hover,
+.menu-list:hover { color : blue; }
+.title-link { color: cornflowerblue; }
+.footer-info {
+    color: cornflowerblue;
+    font-size: 2em;
+}
+.active-item { color : blue; }
+
+div.defaultPag,
+div.activePag {
+    width: 2em;
+    height: 2em;
+    border: .3mm solid gray;
+    text-align: center;
+}
+ 
+article.pag a {
+    text-decoration: none;
+    color: black;
+}
+
+div.activePag a {
+    color: white;
+}
+
+.page-header {
+    font-weight: bold;
+    background-color: lightsteelblue;
+    font-size: 6vh;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.small-font {font-size:smaller;}
+
+.ts {
+    color: #FFFFFF;
+    text-shadow: 
+        0 -0.16em 0 #000000,
+        0 -0.16em 0 #000000,
+        0 0.16em 0 #000000,
+        0 0.16em 0 #000000,
+        -0.16em 0 0 #000000,
+        0.16em 0 0 #000000,
+        -0.16em 0 0 #000000,
+        0.16em 0 0 #000000,
+        -0.04em -0.16em 0 #000000,
+        0.04em -0.16em 0 #000000,
+        -0.04em 0.16em 0 #000000,
+        0.04em 0.16em 0 #000000,
+        -0.16em -0.04em 0 #000000,
+        0.16em -0.04em 0 #000000,
+        -0.16em 0.04em 0 #000000,
+        0.16em 0.04em 0 #000000,
+        -.02em -0.16em 0 #000000,
+        .02em -0.16em 0 #000000,
+        -.02em 0.16em 0 #000000,
+        .02em 0.16em 0 #000000,
+        -0.16em -.02em 0 #000000,
+        0.16em -.02em 0 #000000,
+        -0.16em .02em 0 #000000,
+        0.16em .02em 0 #000000,
+        -.125em -0.16em 0 #000000,
+        .125em -0.16em 0 #000000,
+        -.125em 0.16em 0 #000000,
+        .125em 0.16em 0 #000000,
+        -0.16em -.125em 0 #000000,
+        0.16em -.125em 0 #000000,
+        -0.16em .125em 0 #000000,
+        0.16em .125em 0 #000000,
+        -0.16em -0.16em 0 #000000,
+        0.16em -0.16em 0 #000000,
+        -0.16em 0.16em 0 #000000,
+        0.16em 0.16em 0 #000000,
+        -0.16em -0.16em 0 #000000,
+        0.16em -0.16em 0 #000000,
+        -0.16em 0.16em 0 #000000,
+        0.16em 0.16em 0 #000000;
+}
+
+.big-notify {
+    color: lawngreen;
+    font-size: 2em;
+}
+
+.red-text {
+    color: red;
+}
+
+.big-text {
+    font-size: 1.6em;
+}
+
+
+.green-text {
+    color: forestgreen;
+}
+
+.center {
+    width:  100vw;
+    height: 70vh;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.very-big-text {
+    font-size: 3em;
+}

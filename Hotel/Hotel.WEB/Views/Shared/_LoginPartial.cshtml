@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+    <ul class="navbar-nav ml-auto link-list">
+        @if (User.IsInRole("admin"))
+        {
+            <li class="nav-item">
+                <a href="@Url.Action("UserManagment", "Admin")" class="nav-link">
+                    <span class="menu-list" id="user-managment-page">
+                        Users
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="@Url.Action("RequestManagment", "Admin")" class="nav-link">
+                    <span class="menu-list" id="request_managment_page">
+                        Requests
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="@Url.Action("Logs", "Admin")" class="nav-link">
+                    <span class="menu-list" id="logs_page">
+                        Logs
+                    </span>
+                </a>
+            </li>
+        }
+        else if (User.IsInRole("user"))
+        {
+            <li class="nav-item">
+                <a href="@Url.Action("Index", "Manage")" class="nav-link">
+                    <span class="menu-list" id="user-profile-page">
+                        Profile
+                    </span>
+                </a>
+            </li>
+        }
+        else if (User.IsInRole("deleted"))
+        {
+            <li class="nav-item">
+                <a href="@Url.Action("Info", "Public")" class="nav-link">
+                    <span class="menu-list" id="info-page">
+                        Info
+                    </span>
+                </a>
+            </li>
+        }
+        else if (User.IsInRole("staff"))
+        {
+            <li class="nav-item">
+                <a href="@Url.Action("AddRooms", "Staff")" class="nav-link">
+                    <span class="menu-list" id="add-rooms-page">
+                        Add Room
+                    </span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="@Url.Action("ManageRooms", "Staff")" class="nav-link">
+                    <span class="menu-list" id="manage-rooms-page">
+                        Manage
+                    </span>
+                </a>
+            </li>
+        }
+        <li class="nav-item">
+            <a href="javascript:document.getElementById('logoutForm').submit()"
+               class="nav-link">
+                <span class="menu-list">Log off</span>
+            </a>
+        </li>
+    </ul>
+    }
+}
+else
+{
+    <div>
+        <ul class="navbar-nav ml-auto link-list">
+            <li class="nav-item">
+                <a href="@Url.Action("Register", "Account")" class="nav-link">
+                    <span class="menu-list" id="register-page">Registration</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="@Url.Action("Login", "Account")" class="nav-link">
+                    <span class="menu-list" id="login-page">Log in</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+}
+

@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@Styles.Render("~/Content/css/mainpage.css")
+@model string
+
+<article class="sec-main top-menu" id="main-page">
+    <img src="~/Content/images/hotel.jpg" alt="hotel-background" />
+</article>
+<article class="sec-main-welcome center">
+    <span class="span-main-welcome">@Model</span>
+</article>
+

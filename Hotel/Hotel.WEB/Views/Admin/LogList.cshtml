@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+@using Hotel.WEB.Models.Common;
+@model List<LogViewModel>
+
+
+<div class="container">
+    <div class="row headers">
+        <div class="col-2">DateTime</div>
+        <div class="col-2">UserName</div>
+        <div class="col-3">URL</div>
+        <div class="col-1">Brows</div>
+        <div class="col-1">OS</div>
+        <div class="col-1">IsMob</div>
+        <div class="col-2">Exeption</div>
+    </div>
+    @foreach (var log in Model)
+    {
+        <div class="row log-item">
+            <div class="col-2">@log.Date</div>
+            <div class="col-2">@log.UserName</div>
+            <div class="col-3 p-1">@log.URL</div>
+            <div class="col-1">@log.BrowserName</div>
+            <div class="col-1">@log.Platform</div>
+            <div class="col-1">@log.IsMobile</div>
+            <div class="col-2">@log.Exeption</div>
+        </div>
+    }
+</div>
+
+@if (Model.Count == 0)
+{
+    <div class="big-text mt-3 text-center">There are no results</div>
+}

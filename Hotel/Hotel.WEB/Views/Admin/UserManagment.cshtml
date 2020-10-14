@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Users";
+}
+@Styles.Render("~/Content/css/usernanagmentpage.css")
+@using Hotel.WEB.Models.Admin;
+@using Hotel.WEB.Models.Common;
+@model UserManagmentViewModel
+<article id="user-managment-page" class="top-menu text-center p-1 page-header">@ViewBag.Title</article>
+<article class="h2 text-center">
+    @if (!(ViewBag.Message is null))
+    {
+        if ((ViewBag.Message as LogicMessage).IsPositive)
+        {
+            <span class="green-text">@((ViewBag.Message as LogicMessage).Text)</span>
+        }
+        else
+        {
+            <span class="red-text">@((ViewBag.Message as LogicMessage).Text)</span>
+        }
+    }
+</article>
+<article class="container-fluid">
+    <div class="row">
+        <section class="col-3"> </section>
+        <section class="col-4">
+            <div class="user-column mt-3 mb-3 p-3">
+                <div>
+                    <svg class="pictures">
+                        <polygon points="1,15 15,2 29,15 21,15 21,29 9,29 9,15"
+                                 class="arrow-admin-picture example-arrow-admin">
+
+                        </polygon>
+                    </svg>
+                    - appoint administrator
+                </div>
+                <div>
+                    <svg class="pictures">
+                        <polygon points="1,15 15,2 29,15 21,15 21,29 9,29 9,15"
+                                 class="arrow-staff-picture example-arrow-staff">
+
+                        </polygon>
+                    </svg>
+                    <svg class="pictures">
+                        <polygon points="9,2 21,2 21,16 29,16 15,29 1,16 9,16"
+                                 class="arrow-staff-picture example-arrow-staff">
+                        </polygon>
+                    </svg>
+                    - appoint/dismiss staff
+                </div>
+                <div>
+                    <svg class="pictures">
+                        <polygon points="1,13 4,6 13,20 26,2 29,9 13,29"
+                                 class="check-mark-picture example-check-mark">
+                        </polygon>
+                    </svg>
+                    <svg class="pictures">
+                        <polygon points="5,2 13,12 21,2 25,6 17,16 25,26 21,30 13,20
+                                                 5,30 1,26 9,16 1,6"
+                                 class="cross-picture example-cross">
+                        </polygon>
+                    </svg>
+
+                    - restore/delete user
+                </div>
+            </div>
+        </section>
+        <section class="col-1"> </section>
+        <section class="col-3">
+            <div class="text-center p-3 settings mt-3 mb-3">
+                <div>
+                    Your password: @Html.ActionLink("Change password", "ChangePassword")
+                </div>
+            </div>
+        </section>
+        <section class="col-1"> </section>
+    </div>
+    <div class="row ml-2">
+        <section class="col-4 m-2 user-column p-3">
+            <div class="user-column-header big-text mb-3 pb-2 text-center">
+                Admins
+            </div>
+            <div class="container">
+                @for (int i = 0; i < Model.Admins.Count; i++)
+                {
+                    <div class="row">
+                        <div class="col-1">
+                            <img src="~/Content/images/user-img.png" class="user-img" alt="icon" />
+                        </div>
+                        <div class="col-3 pt-1 text-left">
+                            @Model.Admins[i].UserName
+                        </div>
+                        <div class="col-3 pt-1">
+                            @Model.Admins[i].Email
+                        </div>
+                        <div>
+                        </div>
+                        @if (User.Identity.Name == Model.Admins[i].UserName)
+                        {
+                            <div class="col-2 pt-1 green-text text-right">
+                                YOU
+                            </div>
+                        }
+                        else
+                        {
+                    <div class="col-3">
+                        <a href=@($"/Admin/DeleteFromAdmin/?name={Model.Admins[i].UserName}")>Downgrade</a>
+                    </div>
+                        }
+                    </div>
+                }
+            </div>
+        </section>
+        <section class="col-7  m-2 user-column p-3">
+            <div class="user-column-header text-center big-text mb-3 pb-2">
+                @Html.DropDownList("userCategory",null,
+               htmlAttributes: new { style = "font-weight:bold", id = "user-role" })
+            </div>
+            <div class="container-fluid" id="user-list">
+              @Html.Partial("UserList", new List<UserViewModel>(Model.Users))
+            </div>
+        </section>
+    </div>
+</article>
+
+@section scripts {
+    <script>
+$(document).ready(function () {
+            $('#user-role').change(function (e) {
+                e.preventDefault();
+                let role = $('#user-role').val();
+                role = encodeURIComponent(role);
+                $('#user-list').load('@Url.Action("UserList")?userRole=' + role);
+});
+});
+    </script>
+}

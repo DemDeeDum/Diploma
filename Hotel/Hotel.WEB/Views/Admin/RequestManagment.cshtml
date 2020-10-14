@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "Requests";
+}
+@Styles.Render("~/Content/css/requestmanagmentpage.css")
+@using Hotel.WEB.App_Code;
+@using Hotel.WEB.Models.Admin;
+@using Hotel.WEB.Models.Common;
+@using Hotel.WEB.Models.Booking;
+@model Page<UnluckyRequestViewModel, RequestViewModel>
+<article id="request_managment_page" class="top-menu text-center p-1 page-header">
+    @ViewBag.Title</article>
+
+@if (ViewBag.Message != null)
+{
+<article class="big-text text-center
+         @((ViewBag.Message as LogicMessage).IsPositive ?
+               " green-text" : " red-text" )">
+    @((ViewBag.Message as LogicMessage).Text)
+</article>
+}
+
+<article>
+    <div class="d-lg-flex justify-content-center">
+        <ul>
+            @if (!(ViewBag.Errors is null))
+            {
+                foreach (var error in ViewBag.Errors as List<string>)
+                {
+                    <li class="red-text">@error</li>
+                }
+            }
+        </ul>
+    </div>
+</article>
+    <article class="container">
+        @using (Html.BeginForm("RequestManagment", "Admin",
+                FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row mt-4">
+                <section class="col-4 request-column p-3 containerOfChecks">
+                    <div class="text-center big-text">
+                        All requests
+                    </div>
+
+                    @for (int i = 0; i < @Model.ItemList.Count; i++)
+                    {
+                        <div class="request container mt-3 ">
+                            <div class="row p-2">
+                                <div class="col-8">
+                                    <div>
+                                        @Model.ItemList[i].UserName
+                                    </div>
+                                    <div>
+                                        @Model.ItemList[i].UserEmail
+                                    </div>
+                                    <div>
+                                        start: @Model.ItemList[i].StartDate.ToShortDateString()
+                                        <br />
+                                        finish: @Model.ItemList[i].FinishDate.ToShortDateString()
+                                    </div>
+                                    <div>
+                                        @Model.ItemList[i].RoomClassName class
+                                    </div>
+                                    <div>
+                                        @Model.ItemList[i].PeopleCount
+                                        @(Model.ItemList[i].PeopleCount == 1 ?
+                                "person" : "people")
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-center flex-column">
+                                    <div class="d-flex justify-content-around">
+                                        <input type="hidden" name=@($"{i}ureqid") value=@Model.ItemList[i].UnluckyRequestId />
+                                        <input type="radio" name=@($"{i}u") class="request-radio" />
+                                        <div>
+                                            Select it
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </section>
+                <section class="ml-5 col-6 container containerOfChecks">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-lg-flex">
+                                <div class="parameter">
+                                    <div class="">
+                                        Start date:
+                                    </div>
+                                    <div class="">
+                                        Finish date:
+                                    </div>
+                                </div>
+                                <div class="parameter ml-3">
+                                    <div>
+                                        <input type="date" id="searchbegindate" name="searchbegindate"
+                                               value=@Html.CreateDateString(Model.InputModel.StartDate) required />
+
+                                    </div>
+                                    <div class="">
+                                        <input type="date" id="searchfinishdate" name="searchfinishdate"
+                                               value=@Html.CreateDateString(Model.InputModel.FinishDate) required />
+                                    </div>
+                                </div>
+                                <div class="parameter ml-3">
+                                    <div>
+                                        People count:
+                                    </div>
+                                    <div>
+                                        Class name:
+                                    </div>
+                                </div>
+                                <div class="parameter ml-3">
+                                    <div>
+                                        @Html.DropDownListFor(model => model.InputModel.PeopleCount,
+                                               Model.InputModel.PossiblePeopleCounts,
+                                               "Select count",
+                                               new { required = "" })
+                                    </div>
+                                    <div>
+                                        @Html.DropDownListFor(model => model.InputModel.RoomClassName,
+                        Model.InputModel.RoomClassNames,
+                        "Select class",
+                        new { required = "" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-lg-flex justify-content-around">
+                                <input type="submit" name="action" value="Search" class="btn btn-dark" />
+                                <input type="submit" name="action" value="Answer" class="btn btn-dark" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12 container room-column ">
+                            @for (int i = 0; i < (ViewBag.Rooms as List<RoomViewModel>).Count; i++)
+                            {
+                                <div class="row big-text room-admin p-1 m-2">
+                                    <div class="col-2">
+                                        №@((ViewBag.Rooms as List<RoomViewModel>)[i].Number)
+                                    </div>
+                                    <div class="col-5">
+                                        @((ViewBag.Rooms as List<RoomViewModel>)[i].RoomClassName) class
+                                    </div>
+                                    <div class="col-4">
+                                        @((ViewBag.Rooms as List<RoomViewModel>)[i].PeopleCount)
+                                        @(((ViewBag.Rooms as List<RoomViewModel>)[i].PeopleCount) == 1 ? "person" : "people")
+                                    </div>
+                                    <div class="col-1">
+                                        <input type="hidden"
+                                               name=@($"{i}rid")
+                                               value=@((ViewBag.Rooms as List<RoomViewModel>)[i].Id) />
+                                        <input type="radio" name=@($"{i}r") class="request-radio" />
+                                    </div>
+                                </div>
+                            }
+                            <input type="hidden" name="roomCount" value=@((ViewBag.Rooms as List<RoomViewModel>).Count) />
+                            <input type="hidden" name="requestCount" value=@Model.ItemList.Count />
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        }
+    </article>

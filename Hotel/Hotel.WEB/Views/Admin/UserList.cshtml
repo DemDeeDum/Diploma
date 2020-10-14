@@ -1,0 +1,86 @@
+﻿@using Hotel.WEB.Models.Admin
+@model IEnumerable<UserViewModel>
+@foreach (var user in Model)
+{
+    <div class="row ">
+        <div class="col-1">
+            <img src="~/Content/images/circle.png" class="cirle-img" alt="cirlce" />
+        </div>
+        <div class="col-3 pt-1 text-left">
+            @user.UserName
+        </div>
+        <div class="col-5 pt-1">
+            @user.Email
+        </div>
+        @if (user.Role != "deleted")
+        {
+            <div class="col-1">
+                <a href=@($"/Admin/UpdradeToAdmin/?name={user.UserName}")
+                   class="a-arrow-admin">
+                    <svg class="pictures">
+                        <polygon points="1,15 15,2 29,15 21,15 21,29 9,29 9,15"
+                                 class="arrow-admin-picture">
+
+                        </polygon>
+                    </svg>
+                </a>
+            </div>
+        }
+        @if (user.Role == "user")
+        {
+            <div class="col-1">
+                <a href=@($"/Admin/UpdradeToStaff/?name={user.UserName}")
+                   class="a-arrow-staff">
+                    <svg class="pictures">
+                        <polygon points="1,15 15,2 29,15 21,15 21,29 9,29 9,15"
+                                 class="arrow-staff-picture">
+
+                        </polygon>
+                    </svg>
+                </a>
+            </div>
+        }
+        @if (user.Role == "staff")
+        {
+            <div class="col-1">
+                <a href=@($"/Admin/DowngradeFromStaff/?name={user.UserName}")
+                   class="a-arrow-staff">
+                    <svg class="pictures">
+                        <polygon points="9,2 21,2 21,16 29,16 15,29 1,16 9,16"
+                                 class="arrow-staff-picture">
+                        </polygon>
+                    </svg>
+                </a>
+            </div>
+        }
+        @if (user.Role != "deleted")
+        {
+            <div class="col-1">
+                <a href=@($"/Admin/DeleteUser/?name={user.UserName}")
+                   class="a-cross">
+                    <svg class="pictures">
+                        <polygon points="5,2 13,12 21,2 25,6 17,16 25,26 21,30 13,20
+                                                 5,30 1,26 9,16 1,6"
+                                 class="cross-picture">
+
+                        </polygon>
+                    </svg>
+                </a>
+            </div>
+        }
+        @if (user.Role == "deleted")
+        {
+            <div class="col-3 d-flex justify-content-end">
+                <a href=@($"/Admin/RestoreUser/?name={user.UserName}")
+                   class="a-check-mark">
+                    <svg class="pictures">
+                        <polygon points="1,13 4,6 13,20 26,2 29,9 13,29"
+                                 class="check-mark-picture">
+                        </polygon>
+                    </svg>
+                </a>
+            </div>
+        }
+    </div>
+        }
+

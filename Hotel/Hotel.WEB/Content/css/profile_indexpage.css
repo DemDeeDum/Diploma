@@ -1,0 +1,21 @@
+﻿.settings {
+    background-color: lightsteelblue;
+    border: 1px solid black;
+}
+
+.profile-text-to-user {
+    font-size: 2em;
+    background-color: lightsteelblue;
+}
+
+.payed {
+    color: forestgreen;
+}
+
+.past {
+    color:blue;
+}
+
+.column-header {
+   font-size: 1.5em;
+}

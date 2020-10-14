@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "Booking Page";
+}
+@Styles.Render("~/Content/css/bookingpage.css")
+@using Hotel.WEB.App_Code;
+@using Hotel.WEB.Models.Common;
+@using Hotel.WEB.Models.Booking;
+@model Page<RoomViewModel, RequestViewModel>
+
+
+<article class="top-menu text-center p-1 page-header" id="booking-page">
+    Fill the form or select fit room below
+</article>
+<div class="text-center ts big-notify">@ViewBag.Message</div>
+<article class="form-info-container d-lg-flex justify-content-between">
+    <section class="form-request">
+        @using (Html.BeginForm("BookingPage", "Booking", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <h4>Make a request and you will get an answer in your profile</h4>
+            <hr />
+            if (!(ViewBag.FeedBack is null))
+            {
+                <ul>
+                    <li class="green-text">@ViewBag.FeedBack</li>
+                </ul>
+            }
+            @Html.ValidationSummary(null, new { @class = "error-show" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InputModel.RoomClassName, htmlAttributes: new { @class = "control-label col-md-8" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.InputModel.RoomClassName,
+                   Model.InputModel.RoomClassNames,
+                   "Select people count",
+                   new { @class = "form-control ", required = "" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InputModel.PeopleCount, htmlAttributes: new { @class = "control-label col-md-8" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.InputModel.PeopleCount,
+                     Model.InputModel.PossiblePeopleCounts.ToList(),
+                     "Select room class",
+                     new { @class = "form-control ", required = "" })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.InputModel.StartDate, htmlAttributes: new { @class = "control-label col-md-8" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.InputModel.StartDate, htmlAttributes: new { type = "date", required = "" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.InputModel.FinishDate, htmlAttributes: new { @class = "control-label col-md-8" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.InputModel.FinishDate, htmlAttributes: new { type = "date", required = "" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Send" class="btn btn-dark" />
+                </div>
+            </div>
+        }
+    </section>
+    <section>
+        <div class="info pl-3">
+
+            @Html.CreatePriceList(ViewBag.RoomClasses as List<RoomClassViewModel>,
+    "ts", Model.InputModel.PossiblePeopleCounts.Select(x => byte.Parse(x.Text)).Max())
+
+        </div>
+    </section>
+</article>
+<hr />
+<article>
+    @using (Html.BeginForm("Search", "Booking", FormMethod.Post
+    , new { @class = "d-lg-flex justify-content-center" }))
+    {
+        <section class="mr-5">
+            <h3>Choose the dates to search</h3>
+            <div>
+                <ul>
+                    @if (!(ViewBag.Errors is null))
+                    {
+                        foreach (var error in ViewBag.Errors as List<string>)
+                        {
+                            <li class="red-text">@error</li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="d-lg-flex justify-content-between">
+                <div class="d-flex flex-column mr-3">
+                    @Html.Label("Beginning")
+                    <input type="date" id="searchbegindate" name="searchbegindate" required
+                           value=@Html.CreateDateString(Model.SearchInfo.BeginningTime) />
+                </div>
+                <div class="d-flex flex-column">
+                    @Html.Label("Ending")
+                    <input type="date" id="searchfinishdate" name="searchfinishdate"
+                           value=@Html.CreateDateString(Model.SearchInfo.EndingTime) required />
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <div class="">
+                    <input type="submit" value="Search" class="btn btn-dark" />
+                </div>
+            </div>
+
+
+        </section>
+        <section class="d-lg-flex">
+            <div class="mr-5">
+                <div class="form-group">
+                    <h3>Sort by</h3>
+                </div>
+                <div class="form-group">
+                    @Html.CheckBox("descendingf", Model.SearchInfo.Descending)
+                    @Html.Label("Descending")
+                </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    @Html.CheckBox("pricef", Model.SearchInfo.PriceFilter)
+                    @Html.Label("Price")
+                </div>
+                <div class="form-group">
+                    @Html.CheckBox("peoplecountf", Model.SearchInfo.PeopleFilter)
+                    @Html.Label("People count")
+                </div>
+                <div class="form-group">
+                    @Html.CheckBox("classf", Model.SearchInfo.RoomClassFilter)
+                    @Html.Label("Room class")
+                </div>
+                <div class="form-group">
+                    @Html.CheckBox("statusf", Model.SearchInfo.StatusFilter)
+                    @Html.Label("Room status")
+                </div>
+            </div>
+        </section>
+    }
+</article>
+<hr />
+@if (Model.PageCount != 1)
+{
+    <article class="d-flex justify-content-center pag pagenation">
+        @Html.CreatePagination(Model.PageCount, Model.PageNumber
+               , @"/Booking/BookingPage/", Model.SearchInfo is null ? "" :
+               $"/?PeopleFilter={Model.SearchInfo.PeopleFilter}&" +
+               $"RoomClassFilter={Model.SearchInfo.RoomClassFilter}&" +
+               $"PriceFilter={Model.SearchInfo.PriceFilter}&" +
+               $"StatusFilter={Model.SearchInfo.StatusFilter}&" +
+               $"Descending={Model.SearchInfo.Descending}&" +
+               $"BeginningTime={Model.SearchInfo.BeginningTime}&" +
+               $"EndingTime={Model.SearchInfo.EndingTime}", "bg-dark activePag", "bg-light defaultPag")
+    </article>
+}
+
+@Html.CreateRooms(Model.ItemList, "roomContainer rooms", "roomInfo",
+                 "roomStatus ts", "roomClass ts", Model.SearchInfo.BeginningTime,
+                 Model.SearchInfo.EndingTime)
+
+@if (Model.PageCount != 1)
+{
+    <article class="d-flex justify-content-center pag pagenation">
+        @Html.CreatePagination(Model.PageCount, Model.PageNumber
+               , @"/Booking/BookingPage/", Model.SearchInfo is null ? "" :
+               $"/?PeopleFilter={Model.SearchInfo.PeopleFilter}&" +
+               $"RoomClassFilter={Model.SearchInfo.RoomClassFilter}&" +
+               $"PriceFilter={Model.SearchInfo.PriceFilter}&" +
+               $"StatusFilter={Model.SearchInfo.StatusFilter}&" +
+               $"Descending={Model.SearchInfo.Descending}&" +
+               $"BeginningTime={Model.SearchInfo.BeginningTime}&" +
+               $"EndingTime={Model.SearchInfo.EndingTime}", "bg-dark activePag", "bg-light defaultPag")
+    </article>
+}
+
+

@@ -1,0 +1,58 @@
+﻿@model Hotel.WEB.Models.Identity.RegisterViewModel
+@{
+    ViewBag.Title = "Registration";
+}
+@Styles.Render("~/Content/css/registrationpage.css")
+<article id="register-page" class="top-menu text-center p-1 page-header">@ViewBag.Title</article>
+
+
+<article class="d-lg-flex justify-content-center form-register">
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new
+    { @class = "", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="text-center">Create new account</div>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger small-font" })
+        <div class="d-lg-flex justify-content-center">
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "col-md-8 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="d-lg-flex justify-content-center">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-8 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" , type="email"})
+                </div>
+            </div>
+        </div>
+        <div class="d-lg-flex justify-content-center">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-8 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div class="d-lg-flex justify-content-center">
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-8 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+                <div class="col-md-offset-2 col-md-10 mt-3">
+                    <input type="submit" class="btn btn-dark" value="Registration" />
+                </div>
+            </div>
+        </div>
+
+     }
+</article>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,55 @@
+﻿.pagenation { font-size: 2vh; }
+
+.info,
+.roomContainer {
+    background-color: lightsteelblue;
+    font-size: 2vh;
+}
+
+.roomContainer {
+    font-size: 2.5vw;
+    padding: 1em;
+    border: 5px solid white;
+    border-radius: 1cm;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-info-container,
+.pagenation,
+.roomContainer {
+    margin-top: 2vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+
+
+.roomInfo { width:30vw; }
+.roomStatus,
+.roomClass { width: 20vw; }
+
+body {
+    font-weight: bold;
+    padding-bottom: 10vh;
+}
+.roomContainer span { text-align: center; }
+.form-request {
+    width: 40vw;
+}
+
+
+.info {
+    font-size: 3vw;
+    width: 40vw;
+}
+.info td { text-align: center; }
+.info table {
+        border-collapse: separate; 
+        width: 100%; 
+        border-spacing: 3vw 3vh;
+    }
+.error-show { color: red; }
+
+a:hover{ text-decoration:none;}
+a {color:black;}

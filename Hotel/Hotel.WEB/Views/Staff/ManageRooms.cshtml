@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Managing";
+}
+@Styles.Render("~/Content/css/roompage.css")
+<article class="top-menu text-center p-1 page-header" id="manage-rooms-page">
+    Managing rooms
+</article>
+<article class="container">
+    <div class="row">
+        <section class="col-3 pt-5">
+            @using (Ajax.BeginForm("Rooms", null,
+                new AjaxOptions { UpdateTargetId = "rooms" },
+                     htmlAttributes: new { method = "post" }
+                     ))
+            {
+                <fieldset class="container">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <label>Number</label>
+                            <div>
+                                <input type="text" name="Number" class="p-1" />
+                                <div class="red-text">@ViewBag.NumberError</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <label>People count</label>
+                            <div>
+                                <input type="text" name="PeopleCount" class="p-1" />
+                                <div class="red-text">@ViewBag.PeopleError</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <label>Room class</label>
+                            <div>
+                                @Html.DropDownList("RoomClassName", ViewBag.RoomClasses as List<SelectListItem> ,"Class", new { @class="p-1"})
+                                <div class="red-text">@ViewBag.RoomClassError</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <label>Show inaccessible</label>
+                            <div>
+                                <input type="checkbox" name="SearchInAccessible" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="submit" value="Search" class="btn btn-dark" />
+                        </div>
+                    </div>
+                    
+
+                </fieldset>
+            }
+        </section>
+        <section class="col-9" id="rooms">
+            <div class="text-center big-text">Search something...</div>
+        </section>
+    </div>
+</article>

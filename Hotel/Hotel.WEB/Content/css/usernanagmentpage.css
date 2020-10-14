@@ -1,0 +1,69 @@
+﻿.user-column {
+    border: 0.2em solid gainsboro;
+    overflow: auto;
+}
+
+.user-column-header {
+    border-bottom: 0.2em solid gainsboro;
+}
+
+.settings {
+    background-color: lightsteelblue;
+    border: 1px solid black;
+}
+
+.user-img {
+    width: 7mm;
+    height: 6mm;
+}
+
+.cirle-img {
+    width: 7mm;
+    height: 7mm;
+}
+
+.pictures {
+    width: 10mm;
+    height: 10mm;
+}
+
+.check-mark-picture,
+.arrow-staff-picture,
+.arrow-admin-picture,
+.cross-picture {
+    stroke: black;
+    stroke-width: 1;
+    fill-rule: evenodd;
+}
+
+.arrow-staff-picture {
+    fill: rgb(249,255,185);
+}
+
+.example-arrow-staff,
+.a-arrow-staff:hover polygon {
+    fill: rgb(252,193,0);
+}
+
+.check-mark-picture,
+.arrow-admin-picture {
+    fill: rgb(225,255,229);
+}
+.a-check-mark:hover polygon,
+.example-check-mark,
+.example-arrow-admin,
+.a-arrow-admin:hover polygon {
+    fill: lawngreen;
+}
+
+.cross-picture {
+    fill: rgb(255,225,229);
+}
+
+.example-cross,
+.a-cross:hover polygon {
+    fill: red;
+}
+
+
+

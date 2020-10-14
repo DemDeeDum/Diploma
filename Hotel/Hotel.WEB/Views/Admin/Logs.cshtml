@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Logs";
+}
+@Styles.Render("~/Content/css/logpage.css")
+@using Hotel.WEB.Models.Common;
+@using Hotel.WEB.Models.Admin;
+@model Page<LogViewModel, LogPageInputViewModel>
+<article id="logs_page" class="top-menu text-center p-1 page-header">
+    @ViewBag.Title
+</article>
+
+<article class="d-flex justify-content-center m-4">
+    <div class="form">
+        @using (Ajax.BeginForm("LogList",null, new AjaxOptions { UpdateTargetId = "logs" }, 
+            htmlAttributes: new { method="post" }
+            ))
+        {
+        <fieldset class="container-fluid">
+            <div class="row">
+                <div class="col-6">
+                    <label>User Name Sub String</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" name="UserName" />
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-6">
+                    <label>URL Sub String</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" name="URL" />
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-6">
+                    <label>Start Date</label>
+                </div>
+                <div class="col-6">
+                    <label>Finish Date</label>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <input type="date" name="StartDate" />
+                </div>
+                <div class="col-6">
+                    <input type="date" name="FinishDate" />
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-4">
+                    <label>Show Errors</label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" name="SearchErrors" />
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="submit" value="Search" class="btn btn-dark" />
+                </div>
+            </div>
+
+        </fieldset>
+        }
+    </div>
+</article>
+
+<article id="logs">
+    @Html.Partial("LogList", Model.ItemList)
+</article>

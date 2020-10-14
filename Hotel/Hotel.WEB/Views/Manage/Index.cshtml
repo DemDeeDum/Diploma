@@ -1,0 +1,73 @@
+﻿@model Hotel.WEB.Models.Identity.IndexViewModel
+@using Microsoft.AspNet.Identity
+@using Hotel.WEB.App_Code
+@{
+    ViewBag.Title = $"{@User.Identity.GetUserName()}'s profile";
+}
+@Styles.Render("~/Content/css/profile_indexpage.css")
+
+<article id="user-profile-page" class="top-menu text-center p-1 page-header">Profile</article>
+
+<p class="text-success m-3">@ViewBag.StatusMessage</p>
+<article class="d-flex justify-content-end">
+    <div class="text-center p-3 settings m-3 mr-4 pb-4">
+        <div>
+            Password:
+
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Change password", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Set password", "SetPassword")
+            }
+            Name:
+
+
+        </div>
+    </div>
+</article>
+
+<article class="text-center d-flex justify-content-center">
+    <span class="profile-text-to-user p-4">
+        <span >
+            Hello, @User.Identity.GetUserName()!
+        </span>
+        <br />
+        <span>
+            Here are the answers for your requests
+            <br />
+            and your booked rooms
+        </span>
+    </span>
+</article>
+<article class="container-fluid mt-3">
+    <div class="row">
+        <section class="col-4">
+            <div class="m-5 p-2 text-center column-header">
+                Waiting for paying
+            </div>
+            @Html.CreateBookings("settings m-5 p-2",
+ BookingWriter.BookingStatus.CONFIRM, "ts text-center", ""
+ , "", "btn btn-dark", "d-flex justify-content-center mt-1", Model.BookingsToConfirm)
+        </section>
+        <section class="col-4">
+            <div class="m-5 p-2 text-center column-header">
+                Paid
+            </div>
+            @Html.CreateBookings("settings m-5 p-2",
+BookingWriter.BookingStatus.ACTIVE, "ts text-center", "payed text-center"
+, "", "", "", Model.ActiveBookings)
+        </section>
+        <section class="col-4">
+            <div class="m-5 p-2 text-center column-header">
+                Finished
+            </div>
+            @Html.CreateBookings("settings m-5 p-2",
+BookingWriter.BookingStatus.PAST, "ts text-center", ""
+, "past text-center", "", "", Model.PastBookings)
+        </section>
+    </div>
+</article>
+

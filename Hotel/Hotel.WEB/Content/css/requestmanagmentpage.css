@@ -1,0 +1,39 @@
+﻿.room-column,
+.request-column {
+    border: 0.2em solid gainsboro;
+    overflow:auto;
+}
+
+.request-column {
+    height: 60vh;
+}
+
+.room-column {
+    height: 40vh;
+}
+
+.request {
+    background-color: lightsteelblue;
+    border: 0.05em solid black;
+    overflow: auto;
+}
+
+.request-radio {
+    width: 6mm;
+    height: 6mm;
+}
+
+select,
+input {
+    width: 4cm;
+}
+
+.parameter > div {
+    height: 1.5cm;
+}
+
+.room-admin {
+    background-color: greenyellow;
+    border-radius: 1cm;
+}
+

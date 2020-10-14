@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body class="d-lg-flex flex-column justify-content-lg-between">
+    <header class="navbar navbar-expand-md navbar-light bg-light
+            font-weight-bold">
+        <nav class="container-fluid">
+
+            <span>
+                <a href="/Public/MainPage" class=" title-link">
+                    <img src="~/Content/images/dolphin.png" alt="dolphin"
+                         width="57" height="57" />
+                </a>
+            </span>
+            <span class="h1 blue-color-title">
+                <a href="/Public/MainPage" class="nav-link title-link">Big Atlantic</a>
+            </span>
+            @if (User.IsInRole("admin"))
+            {
+                <span class="h1 red-text">
+                    Admin
+                </span>
+            }
+
+            else if (User.IsInRole("staff"))
+            {
+                <span class="h1 red-text">
+                    Staff
+                </span>
+            }
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse h-50" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto link-list">
+                    <li class="nav-item">
+                        <a href="@Url.Action("MainPage", "Public")" class="nav-link">
+                            <span class="menu-list" id="main-page">Home</span>
+                        </a>
+                    </li>
+                    @if (User.IsInRole("user") || !Request.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a href="@Url.Action("BookingPage", "Booking")" class="nav-link">
+                                <span class="menu-list" id="booking-page">Booking</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+
+            </div>
+        </nav>
+    </header>
+    <main class="mb-5 pb-5">
+        @RenderBody()
+    </main>
+    <footer class="blog-footer bg-dark d-lg-flex fixed-bottom
+        justify-content-around pt-3 pb-3 font-weight-bold">
+        <span class="footer-info">Avaliable Price</span>
+        <span class="footer-info">Royal Quality</span>
+        <span class="footer-info"> Good Location</span>
+    </footer>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Content/javascript/layout.js")
+    @RenderSection("scripts", required: false)
+</body>     
+</html>

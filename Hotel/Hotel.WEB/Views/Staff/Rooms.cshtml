@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+@Styles.Render("~/Content/css/roomlistpage.css")
+@using Hotel.WEB.Models.Booking
+@model List<RoomViewModel>
+
+<div class="container mt-3">
+    <div class="row p-1">
+        <div class="col-2">
+            Number
+        </div>
+        <div class="col-2">
+            Room class
+        </div>
+        <div class="col-2">
+            People
+        </div>
+        <div class="col-2">
+            Status
+        </div>
+        <div class="col-3 text-center">
+            Change
+        </div>
+    </div>
+
+    @foreach (var room in Model)
+    {
+        <div class="row p-1 mt-3 room">
+            <div class="col-2">
+                @room.Number
+            </div>
+            <div class="col-2">
+                @room.RoomClassName
+            </div>
+            <div class="col-2">
+                @room.PeopleCount
+            </div>
+            <div class="col-3">
+                @if (room.AppartmentStatus == "AVAILABLE")
+                {
+                    <span class="green-text" >@room.AppartmentStatus</span>
+                }
+                else
+                {
+                    <span class="red-text" >@room.AppartmentStatus</span>
+                }
+        
+            </div>
+            <div class="col-3">
+                <a href=@($"/Staff/EditRoom/{room.Id}")>Change</a>
+            </div>
+        </div>
+    }
+</div>

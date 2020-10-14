@@ -1,0 +1,13 @@
+﻿.room-info {
+    background-color: lightsteelblue;
+    border: 1px solid black;
+    font-size: 1.5em;
+}
+
+
+.room-photo {
+    border: 0.4em ridge black;
+    font-size: 1.5vw;
+    width: 30em;
+    height: 20em;
+}
